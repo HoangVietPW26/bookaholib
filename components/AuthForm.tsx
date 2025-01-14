@@ -17,6 +17,8 @@ import { Input } from "@/components/ui/input"
 import Link from 'next/link'
 import { FIELD_NAMES, FIELD_TYPES } from '@/app/constants'
 import ImageUpload from './ImageUpload'
+import { toast } from '@/hooks/use-toast'
+import { useRouter } from 'next/navigation'
 
 interface Props<T extends FieldValues> {
     schema: ZodType<T>;
@@ -34,10 +36,25 @@ const AuthForm = <T extends FieldValues>({type, schema, defaultValues, onSubmit}
         resolver: zodResolver(schema),
         defaultValues: defaultValues as DefaultValues<T>
       })
+    
+      const router = useRouter()
      
       // 2. Define a submit handler.
       const handleSubmit: SubmitHandler<T> = async(data) => {
- 
+        const result = await onSubmit(data)
+        if (result.success) {
+          toast({
+            title: 'Success',
+            description: isSignIn ? 'Successfully Sign In' : 'Successfully Sign Up'
+          })
+          router.push("/")
+        } else {
+          toast({
+            title: `Error ${isSignIn ? 'Siigning In' : 'Signing Up'}`,
+            description: result.error ?? 'An error occur',
+            variant: 'destructive'
+          })
+        }
       }
   
     return (

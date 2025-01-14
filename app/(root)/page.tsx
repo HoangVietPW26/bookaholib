@@ -8,7 +8,6 @@ import {users} from "@/database/schema"
 
 const Home = async() => {
   const res = await db.select().from(users)
-  console.log(JSON.stringify(res, null, 2))
   return (
     <>
     <BookOverview {...sampleBooks[0]} />
