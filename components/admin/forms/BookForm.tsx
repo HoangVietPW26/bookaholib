@@ -21,6 +21,7 @@ import { useRouter } from 'next/navigation'
 import { bookSchema } from '@/lib/validations'
 import z from 'zod'
 import { Textarea } from '@/components/ui/textarea'
+import FileUpload from '@/components/FileUpload'
 
 interface Props<T extends Partial<Book>>{
     type: "create" | "update"
@@ -149,7 +150,14 @@ const BookForm = ({type, ...book}: Props) => {
                     Book Image
                 </FormLabel>
                 <FormControl>
-                    {/* Fiel upload */}
+                    <FileUpload 
+                        type='image' 
+                        accept='image/*' 
+                        placeholder='Upload a book cover' 
+                        folder='books/cover' 
+                        variant='light' 
+                        onFileChange={field.onChange} 
+                        value={field.value} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -199,7 +207,14 @@ const BookForm = ({type, ...book}: Props) => {
                     Book Trailer
                 </FormLabel>
                 <FormControl>
-                    {/* Fiel upload */}
+                <FileUpload 
+                        type='video' 
+                        accept='video/*' 
+                        placeholder='Upload a book trailer' 
+                        folder='books/video' 
+                        variant='light' 
+                        onFileChange={field.onChange} 
+                        value={field.value} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
