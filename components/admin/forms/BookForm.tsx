@@ -23,6 +23,7 @@ import z from 'zod'
 import { Textarea } from '@/components/ui/textarea'
 import FileUpload from '@/components/FileUpload'
 import ColorPicker from '../ColorPicker'
+import { createBook } from '@/lib/admin/actions/books'
 
 interface Props<T extends Partial<Book>>{
     type: "create" | "update"
@@ -52,7 +53,21 @@ const BookForm = ({type, ...book}: Props) => {
      
       // 2. Define a submit handler.
       const onSubmit = async(values: z.infer<typeof bookSchema>) => {
-        console.log(values)
+        const result = await createBook(values)
+        if (result.success) {
+            toast({
+                title: 'Success',
+                description: "Book create successfullly"
+            })
+
+            router.push(`/admin/books/${result.data.id}`)
+        } else {
+            toast({
+                title: 'Error',
+                description: result.messege,
+                variant: "destructive"
+            })
+        }
       }
   
     return (
