@@ -1,7 +1,9 @@
+"use client"
 import React from 'react'
 import { cn } from '@/lib/utils';
-import Image from 'next/image';
+import { IKImage } from 'imagekitio-next';
 import BookCoverSvg from './BookCoverSvg';
+import config from '@/lib/config';
 
 type BookCoverVariant = "extraSmall" | "small" | "medium" | "regular" | "wide"
 
@@ -30,7 +32,15 @@ const BookCover = ({
     <div className={cn('relative transition-all duration-300', variantStyles[variant], className)}>
         <BookCoverSvg coverColor={coverColor}></BookCoverSvg>
         <div className='absolute z-10' style={{left: '12%', width:'87.5%', height:'88%'}}>
-            <Image src={coverUrl} alt='Book Cover' fill className='rounded-sm object-fill' />
+            <IKImage 
+                path={coverUrl} 
+                urlEndpoint={config.env.imagekit.urlEndpoint} 
+                alt='Book Cover' 
+                fill 
+                className='rounded-sm object-fill' 
+                loading='lazy' 
+                lqip={{active: true}}
+            />
         </div>
     </div>
 
