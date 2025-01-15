@@ -22,6 +22,7 @@ import { bookSchema } from '@/lib/validations'
 import z from 'zod'
 import { Textarea } from '@/components/ui/textarea'
 import FileUpload from '@/components/FileUpload'
+import ColorPicker from '../ColorPicker'
 
 interface Props<T extends Partial<Book>>{
     type: "create" | "update"
@@ -50,7 +51,9 @@ const BookForm = ({type, ...book}: Props) => {
     
      
       // 2. Define a submit handler.
-      const onSubmit = async(values: z.infer<typeof bookSchema>) => {}
+      const onSubmit = async(values: z.infer<typeof bookSchema>) => {
+        console.log(values)
+      }
   
     return (
 
@@ -74,7 +77,7 @@ const BookForm = ({type, ...book}: Props) => {
             )}
           />
 
-<FormField
+        <FormField
             control={form.control}
             name="author"
             render={({ field }) => (
@@ -174,7 +177,7 @@ const BookForm = ({type, ...book}: Props) => {
                     Primary Color
                 </FormLabel>
                 <FormControl>
-                    {/* Color Picker */}
+                    <ColorPicker onPickerChange={field.onChange} value={field.value} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -238,7 +241,7 @@ const BookForm = ({type, ...book}: Props) => {
             )}
           />
 
-          <Button type='submit' className='book-form-btn text-white'>Add book to library</Button>
+          <Button type='submit' className='book-form_btn text-white'>Add book to library</Button>
 
         </form>
       </Form>

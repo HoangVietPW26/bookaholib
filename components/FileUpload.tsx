@@ -55,9 +55,8 @@ const FileUpload = ({
   const [file, setFile] = useState<{ filePath: string | null }>({
     filePath: value ?? null,
   });
-  window.file  = file
+
   const [progress, setProgress] = useState(0);
-  window.progress = progress
 
   const styles = {
     button:
