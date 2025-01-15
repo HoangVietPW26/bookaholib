@@ -31,7 +31,7 @@ interface Props<T extends Partial<Book>>{
 
 
 
-const BookForm = ({type, ...book}: Props) => {
+const BookForm = ({type, ...book}: Props<Book>) => {
     
     const router = useRouter()
     const form = useForm<z.infer<typeof bookSchema>>({
