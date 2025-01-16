@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { signOut } from 'next-auth/react'
+import { signOut } from '@/auth'
 import { Button } from './ui/button'
 
 const Header = () => {
